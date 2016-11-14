@@ -1,42 +1,70 @@
 \documentclass[a4paper,12pt]{article}
 
-\usepackage{times}                       % 使用 Times New Roman 字体
-\usepackage{CJK,CJKnumb,CJKulem}         % 中文支持宏包
-\usepackage{color}                       % 支持彩色
-
-%——————————–其他宏包——————————–
+\usepackage{times}
+\usepackage{CJK,CJKnumb,CJKulem}
+\usepackage{color}
+\usepackage{geometry}
+\usepackage{indentfirst}
 %\usepackage{amsmath,amsthm,amsfonts,amssymb,bm} % 数学宏包
 %\usepackage{graphicx,psfrag}                    % 图形宏包
 %\usepackage{makeidx}                            % 建立索引宏包
 %\usepackage{listings}                           % 源代码宏包
 
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\newcommand{\startpar}{\par\setlength\parindent{2em}}
+\setlength{\parindent}{2em}
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}
 %———————————正文———————————–
 \begin{document} % 开始正文
-\begin{CJK*}{GBK}{song}                           % 开始中文环境
+\begin{CJK*}{GBK}{song}% 开始中文环境
+\linespread{1.6}
 
-\author{王汉杰M201676090}                                 % 作者
-\title{《Using deep learning to enhance cancer diagnosis and classification》读书笔记}% 题目
-\maketitle                                       % 生成标题
+\author{王汉杰M201676090}% 作者
+\title{基于深度学习的癌症检测分类的理论和技术概述}% 题目
+\maketitle% 生成标题
+\clearpage
 
+\renewcommand{\abstractname}{\sanhao 摘要}
 \begin{abstract}
-qwefnweofno
+\startpar
+本文以ICML会议在2013年发表的论文《Using deep learning to enhance cancer diagnosis and classification》为主要研究内容，初步了解深度学习在癌症基因诊断和分类上的应用。这篇论文首先分析基因检测技术存在的困难和现有解决方案的局限性；其次提出了使用基于深度学习的无监督的特征学习方法对基因特征进行分析的改进解决方案；最后以准确性、通用性和拓展性为指标对比分析了新方法和原有方法，得出了新方法更优的结论，基本解决了现有的问题。
+\startpar
+本文大致按照原论文的思路进行展开，查找有关论文中涉及到的却没有展开的内容的相关资料，对文章这部分内容进行一定的补充；对文章的内容进行梳理，重点将放在应用技术这个层面；此外在最后对该篇论文中涉及的技术近几年应用的情况进行说明。
 \end{abstract}
-
-\textbf{关键字：1232,3456,467567}
+\vspace{10pt}
+\textbf{关键字：深度学习,基因表达,癌症诊断和分类}
 \clearpage
 
 \section{绪论}
-TEX是由图灵奖得主Knuth编写的计算机程序，用于文章和数学公式的排版。
+\linespread{1.6}\selectfont
+\startpar
+在生物学和临床上研究基因表达和癌细胞状态或阶段之间的关系十分重要的。基因表达指的是包含在多种组织样本中的基因信息，还包括正常组织和病态组织中基因表达的不同之处。想要知道这些不同之处，就需要比较两种细胞基因间的不同。为此有大量机器学习的方法用来解决这一问题。但是基因数据维度非常高，而一种肿瘤样本给出的组织样本数是十分有限的。这为机器学习技术带来了大量的局限性。
+\startpar
+为此，德州大学阿灵顿分校计算机科学与工程系的四位研究人员Rasool Fakoor、Faisal Ladhak、Azade Nazi和Manfred Huber于2013年在ICML会议上发表了题为《Using deep learning to enhance cancer diagnosis and classification》的论文（以下简称“论文”）。文中分析了现有深度学习理论技术在癌症基因检测方面的应用现状，对现有技术的不足和局限性进行了重点的描述和分析，并针对这些问题综合设计了新的解决方案，并进行了实现。在文章最后对于新方法和已有的基线算法进行了对比测试，得出了新方法拥有相较之已有方法更好的准确性、通用性和可拓展性。
+\startpar
+这篇文章在对论文的内容进行充分解析的基础上，把着眼点放在实现技术层面，将论文中重点应用的技术从理论到这一实际应用整个过程进行一定概述分析。对于在论文中一笔带过的内容进行一定的拓展。
+\startpar
+本文的内容结构包括以下几个部分：第2节重点解析论文中的相关内容；第3节概述分析论文中涉及的重点技术；第4节总结全文。
 
-1977年Knuth开始编写TEX排版系统引擎的时候，\\ % 换行
-是为了探索当时正开始进入出版工业的数字印刷设备的潜力。他特别希望能因此扭转那种排版质量下降的趋势，
-使自己写的{\CJKfamily{hei}书和文章}免受其害。
+\section{相关背景}
+\linespread{1.6}\selectfont
+\subsection{现状与问题}
 
-\clearpage % 换页，\newpage也可以，推荐\clearpage
-我们现在使用的TEX系统是在1982年发布的，1989年又略作改进，增进了
-对8字节字符和多语言的支持。TEX以具有优异的稳定性，可以在各种不同
-类型的计算机上运行，以及几乎没有错误而著称。
+\subsection{理论与技术}
 
-\section{Introducton}
+\section{重要技术应用概述分析}
+\linespread{1.6}\selectfont
+\subsection{PCA数据分析技术及其应用}
+
+\subsection{Sparse Autoencoder与Stacked Autoencoder及其应用}
+
+\subsection{……}
+
+\section{结论}
+\linespread{1.6}\selectfont
+
+\section{参考文献}
+\linespread{1.6}\selectfont
+
 \end{CJK*}     % 结束中文环境
 \end{document} % 结束正文
